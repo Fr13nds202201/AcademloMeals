@@ -6,10 +6,11 @@ const catchAsync = require('./../utils/catchAsync');
 
 
 exports.create = catchAsync(async (req, res, next) => {
-
+    const { id } = req.params;
     const { name, price } = req.body;
 
     const Meals = await Meals.create({
+        id,
         name,
         price,
     });

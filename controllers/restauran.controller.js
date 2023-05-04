@@ -26,3 +26,46 @@ exports.create = catchAsync(async (req, res, next) => {
         },
     });
 });
+
+exports.findAll = catchAsync(async (req, res, next) => {
+    const restaurants = await Restaurants.findAll({
+        where: {
+            status: true,
+        }
+    })
+
+    return res.status(200).json({
+        status: 'successs',
+        results: restaurants.length,
+        restaurants,
+    });
+});
+
+exports.findOne = catchAsync(async (req, res, next) => {
+    const { restaurants } = req;
+
+    return res.status(200).json({
+        restaurants,
+    });
+});
+
+exports.update = catchAsync(async (req, res, next) => {
+    const { restaurant } = req;
+    const { name, address } = req;
+
+    await restaurants.update({ name, address });
+
+    return res.status(200).json({
+        status: 'success',
+    });
+});
+
+exports.delete = catchAsync(async (req, res, next) => {
+    const { restaurants } = req;
+
+    await restaurant.update({ status: false });
+
+    return res.status(200).json({
+        status: 'success',
+    });
+});
