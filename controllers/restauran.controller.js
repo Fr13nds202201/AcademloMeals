@@ -30,7 +30,7 @@ exports.create = catchAsync(async (req, res, next) => {
 exports.findAll = catchAsync(async (req, res, next) => {
     const restaurants = await Restaurants.findAll({
         where: {
-            status: true,
+            status: 'active',
         }
     })
 
@@ -42,10 +42,10 @@ exports.findAll = catchAsync(async (req, res, next) => {
 });
 
 exports.findOne = catchAsync(async (req, res, next) => {
-    const { restaurants } = req;
+    const { restaurant } = req;
 
     return res.status(200).json({
-        restaurants,
+        restaurant,
     });
 });
 

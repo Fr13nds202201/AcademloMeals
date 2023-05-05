@@ -21,8 +21,9 @@ const Restaurants = db.define('restaurants', {
         allowNull: false,
     },
     status: {
-        type: DataTypes.STRING,
-        defaultValue: 'available'
+        type: DataTypes.ENUM("active", "disabled"),
+        allowNull: false,
+        defaultValue: 'active',
     }
 
 });
