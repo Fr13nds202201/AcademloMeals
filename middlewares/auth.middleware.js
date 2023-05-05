@@ -36,4 +36,24 @@ exports.protect = catchAsync(async (req, res, next) => {
             new AppError('The owner of this token it not longer available', 401)
         );
     }
+    req.sessionUser = user;
+    next();
 })
+exports.protectAccountOwner = catchAsync(async (req, res, next) => {
+    const { user, sessionUser } = req;
+    if (user.id !== sessionUser.id) {
+        return next(new AppError("you do not own this account.", 401));
+    }
+    next();
+});
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.sessionUser.role)) {
+            return next(
+                new AppError("You do not have permission to perform this action", 403)
+            );
+        }
+        next();
+    };
+};
