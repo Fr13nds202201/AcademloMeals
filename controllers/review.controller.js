@@ -1,16 +1,22 @@
-const catchAsync = require("../utils/catchAsync")
+const catchAsync = require("../utils/catchAsync");
+const Reviews = require('./../models/reviews.models');
 
 exports.create = catchAsync(async (req, res, next) => {
     const { comment, rating } = req.body;
     const { id } = req.params;
     const uid = req.sessionUser.id
+    console.log(uid);
+    await Reviews.create({
+        comment,
+        rating,
+        restaurantid: Number(id),
+        userid: Number(uid),
+    });
 
-    await Reviews.create({ comment, rating, restaurantId: id, userId: uid });
-
-    return res.status(200).json({
+    return res.status(201).json({
         status: 'success',
-    })
-})
+    });
+});
 
 exports.update = catchAsync(async (req, res, next) => {
     const { review } = req;

@@ -9,7 +9,7 @@ const Reviews = db.define('reviews', {
         type: DataTypes.INTEGER
     },
     userid: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     comment: {
@@ -23,7 +23,12 @@ const Reviews = db.define('reviews', {
     rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    }
+    },
+    // status: {
+    //     type: DataTypes.BOOLEAN,
+    //     allowNull: false,
+    //     defaultValue: true,
+    // },
 
 });
 

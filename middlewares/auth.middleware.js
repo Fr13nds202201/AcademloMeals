@@ -1,12 +1,14 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
-
 const User = require('../models/users.models');
+const AppError = require('./../utils/appError');
 
 exports.protect = catchAsync(async (req, res, next) => {
     let token;
-    if (req.headers.authorization && req.headers.authorization.startswith('Bearer')
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
     ) {
         token = req.headers.authorization.split(' ')[1];
     }
@@ -27,7 +29,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     const user = await User.findOne({
         where: {
             id: decoded.id,
-            status: 'active',
+            status: 'available',
         },
     });
 

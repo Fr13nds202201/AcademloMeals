@@ -14,23 +14,26 @@ router
     .route('/')
     .get(restaurantController.findAll)
     .post(authMiddleware.protect,
-        authMiddleware.restrictTo('admin'),
+        authMiddleware.restrictTo('admin@academlo.com'),
         restaurantController.create);
 
 router
-    .use('/:id', restaurantMiddleware.existRestaurant)
     .route('/:id')
-    .get(restaurantController.findOne)
+    .get(restaurantMiddleware.existRestaurant, restaurantController.findOne)
     .patch(authMiddleware.protect,
-        authMiddleware.restrictTo('admin'),
+        authMiddleware.restrictTo('admin@academlo.com'),
         restaurantController.update)
     .delete(authMiddleware.protect,
-        authMiddleware.restrictTo('admin'),
+        authMiddleware.restrictTo('admin@academlo.com'),
         restaurantController.delete);
 
 router.use(authMiddleware.protect)
 
-router.post('/reviews/:id', reviewController.create)
+router.post(
+    '/reviews/:id',
+    restaurantMiddleware.existRestaurant,
+    reviewController.create
+);
 
 router
     .use('/reviews/:restaurantId/:id',
