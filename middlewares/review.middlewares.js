@@ -5,7 +5,7 @@ const AppError = require('../utils/appError');
 
 exports.existReview = catchAsync(async (req, res, next) => {
     const { id } = req.params;
-    console.log(id);
+
     const review = await Review.findOne({
         where: { // status: true,
             id,
