@@ -53,17 +53,18 @@ exports.update = catchAsync(async (req, res, next) => {
     const { restaurant } = req;
     const { name, address } = req;
 
-    await restaurants.update({ name, address });
+    await restaurant.update({ name, address });
 
     return res.status(200).json({
         status: 'success',
+        message: 'the Restaurant has been update!!',
     });
 });
 
 exports.delete = catchAsync(async (req, res, next) => {
     const { restaurants } = req;
 
-    await restaurant.update({ status: false });
+    await Restaurants.update({ status: false });
 
     return res.status(200).json({
         status: 'success',

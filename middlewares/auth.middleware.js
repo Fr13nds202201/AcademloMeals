@@ -46,6 +46,7 @@ exports.protectAccountOwner = catchAsync(async (req, res, next) => {
     if (user.id !== sessionUser.id) {
         return next(new AppError("you do not own this account.", 401));
     }
+    console.log(user);
     next();
 });
 

@@ -4,7 +4,8 @@ const Reviews = require('./../models/reviews.models');
 exports.create = catchAsync(async (req, res, next) => {
     const { comment, rating } = req.body;
     const { id } = req.params;
-    const uid = req.sessionUser.id
+    const uid = req.sessionUser.id;
+
     console.log(uid);
     await Reviews.create({
         comment,
@@ -13,7 +14,7 @@ exports.create = catchAsync(async (req, res, next) => {
         userid: Number(uid),
     });
 
-    return res.status(201).json({
+    return res.status(202).json({
         status: 'success',
     });
 });
@@ -28,6 +29,7 @@ exports.update = catchAsync(async (req, res, next) => {
         status: 'success',
     });
 });
+
 exports.delete = catchAsync(async (req, res, next) => {
     const { review } = req;
     await review.update({ status: false });
