@@ -26,3 +26,15 @@ exports.create = catchAsync(async (req, res, next) => {
         // },
     });
 });
+exports.findAll = catchAsync(async (req, res, next) => {
+    const meals = await Meals.findAll({
+        where: {
+            status: 'active',
+        }
+    })
+
+    return res.status(200).json({
+        status: 'success',
+        meals,
+    })
+})

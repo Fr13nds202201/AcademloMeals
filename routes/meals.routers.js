@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mealsController = require('./../controllers/meals.controller');
 
-// router
-//     .get('/',);
+router
+    .get('/', mealsController.findAll);
 
 router
     // .route('/:id')
