@@ -9,19 +9,20 @@ exports.create = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const { name, price } = req.body;
 
-    const Meals = await Meals.create({
-        id,
+    await Meals.create({
+        restaurantid: Number(id),
         name,
         price,
     });
 
     res.status(201).json({
         status: 'SUCCESS',
-        message: 'Restaurant created successfully',
-        Meals: {
-            id: Meals.id,
-            name: Meals.name,
-            price: Meals.price,
-        },
+        message: 'Meals was created successfully',
+        // meals: {
+
+        //     name: meals.name,
+        //     price: meals.price,
+        //     restaurantid: meals.restaurantid,
+        // },
     });
 });
